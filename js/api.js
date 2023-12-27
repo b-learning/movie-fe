@@ -5,7 +5,6 @@ const fetchMovies = async () => {
     "https://api.themoviedb.org/3/discover/tv?api_key=a10ee5569194b352bcca20840b7f8a32&with_networks=213"
   );
   const movies = response.data.results;
-  console.log(movies);
 
   // movies -> items
   const items = movies.map((movie) => {
@@ -14,8 +13,6 @@ const fetchMovies = async () => {
       <img src="https://image.tmdb.org/t/p/original/${movie.backdrop_path}" alt="" />
     </div>`;
   });
-
-  console.log(items.join(""));
 
   const singleCarousel = document.getElementById("single-carousel");
   singleCarousel.innerHTML = items.join("");
@@ -26,5 +23,89 @@ const fetchMovies = async () => {
     arrows: false,
   });
 };
+// function tạo ra 1 movie row
+const fetchMoviesRow = async (api, title) => {
+  const response = await axios.get(api);
 
-fetchMovies();
+  const body = document.getElementById("body");
+
+  body.innerHTML += `    <div class="movie-row">
+  <div class="movie-row__title">
+    <h3>Trending Now</h3>
+  </div>
+
+  <div class="movie-row__items">
+    <div class="responsive-carousel">
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/mBaXZ95R2OxueZhvQbcEWy2DqyO.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/8xV47NDrjdZDpkVcCFqkdHa3T0C.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/f5f3TEVst1nHHyqgn7Z3tlwnBIH.jpg" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/qjhahNLSZ705B5JP92YMEYPocPz.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/dB6Krk806zeqd0YNp2ngQ9zXteH.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/mBaXZ95R2OxueZhvQbcEWy2DqyO.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/8xV47NDrjdZDpkVcCFqkdHa3T0C.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/f5f3TEVst1nHHyqgn7Z3tlwnBIH.jpg" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/qjhahNLSZ705B5JP92YMEYPocPz.jpg" alt="" />
+      </div>
+
+      <div class="item">
+        <img src="https://image.tmdb.org/t/p/original/dB6Krk806zeqd0YNp2ngQ9zXteH.jpg" alt="" />
+      </div>
+    </div>
+  </div>
+</div>`;
+};
+
+const fetch = async () => {
+  await fetchMovies();
+  await fetchMoviesRow(
+    "https://api.themoviedb.org/3/trending/all/week?api_key=a10ee5569194b352bcca20840b7f8a32&language=en-US",
+    "Trending"
+  );
+
+  await fetchMoviesRow(
+    "https://api.themoviedb.org/3/discover/movie?api_key=a10ee5569194b352bcca20840b7f8a32&with_genres=35",
+    "Comedy"
+  );
+
+  await fetchMoviesRow(
+    "https://api.themoviedb.org/3/movie/top_rated?api_key=a10ee5569194b352bcca20840b7f8a32&language=en-US",
+    "Top Rated"
+  );
+
+  // tất cả api đã xong
+
+  initCarousel();
+};
+
+fetch();

@@ -17,9 +17,14 @@ body {
   padding: 15px 30px;
   background-color: #222;
   font-weight: 600;
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
   .logo {
     color: #e50914 !important;
   }
+  z-index: 100;
 }
 
 .hero-carousel {
@@ -40,9 +45,15 @@ body {
     padding: 0 20px;
     .item {
       padding: 0 10px;
+      transition: all 0.3s;
+      cursor: pointer;
 
       img {
         width: 100%;
+      }
+
+      &:hover {
+        transform: scale(1.1);
       }
     }
 
